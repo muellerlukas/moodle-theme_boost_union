@@ -30,7 +30,7 @@ namespace theme_boost_union;
  * Special setting for configtextarea with URL validation.
  *
  * @package    theme_boost_union
- * @copyright  20203 Lukas MuLu Müller, lern.link GmbH <mulu@lernlink.de>
+ * @copyright  2023 Lukas MuLu Müller, lern.link GmbH <mulu@lernlink.de>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class admin_setting_configtext_url extends \admin_setting_configtext {
@@ -49,21 +49,21 @@ class admin_setting_configtext_url extends \admin_setting_configtext {
         if (empty($data)) {
             return true;
         }
-		// Require file library.
-		require_once($CFG->libdir.'/filelib.php');
-	
+        // Require file library.
+        require_once($CFG->libdir.'/filelib.php');
+    
         // If not a valid url it is an invalid url
         if (filter_var($data, FILTER_VALIDATE_URL) === false) {
             return get_string('invalid_url', 'theme_boost_union');
         } else {
-			// Check if the url is blocked by moodle
-			$curl = new \curl();
-			$security = $curl->get_security();
-			
-			if ($security->url_is_blocked($data)) {
-				return $security->get_blocked_url_string();
-			}				
-		}
+            // Check if the url is blocked by moodle
+            $curl = new \curl();
+            $security = $curl->get_security();
+            
+            if ($security->url_is_blocked($data)) {
+                return $security->get_blocked_url_string();
+            }
+        }
 
         // Return the result of the parent class' check of the data.
         return parent::validate($data);
