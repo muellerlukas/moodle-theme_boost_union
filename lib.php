@@ -115,8 +115,22 @@ function theme_boost_union_get_main_scss_content($theme) {
         // Safety fallback - maybe new installs etc.
         $scss .= file_get_contents($CFG->dirroot . '/theme/boost_union/scss/preset/default.scss');
     }
+	
     $scss .= file_get_contents($CFG->dirroot . '/theme/boost_union/scss/boost_union/post.scss');
 
+	// This should be in theme_boost_union_get_extra_scss(), but as the theming works theme_boost_get_extra_scss() is executed before
+	// As we want to add the SCSS before this, we sadly have to do it here
+	if (get_config('theme_boost_union', 'scssurl')) {
+		$url = get_config('theme_boost_union', 'scssurl');
+		
+		$curl = new curl();
+
+		// if blocked don't read
+		if (!$curl->get_security()->url_is_blocked($url)) {
+			$scss .= $curl->get($url);
+		}
+	}
+	
     return $scss;
 }
 
@@ -131,6 +145,9 @@ function theme_boost_union_get_pre_scss($theme) {
 
     // Require local library.
     require_once($CFG->dirroot . '/theme/boost_union/locallib.php');
+	
+	// Require file library.
+	require_once($CFG->libdir.'/filelib.php');
 
     $scss = '';
 
@@ -208,7 +225,19 @@ function theme_boost_union_get_pre_scss($theme) {
         $scss .= '$blockregionoutsiderightwidth: '.get_config('theme_boost_union', 'blockregionoutsiderightwidth').
                 ";\n";
     }
+	
+	// get custom pre-scss from URL
+	if (get_config('theme_boost_union', 'scsspreurl')) {
+		$url = get_config('theme_boost_union', 'scsspreurl');
+		
+		$curl = new curl();
 
+		// if blocked don't read
+		if (!$curl->get_security()->url_is_blocked($url)) {
+			$scss .= $curl->get($url);
+		}
+	}
+	
     // Prepend pre-scss.
     if (get_config('theme_boost_union', 'scsspre')) {
         $scss .= get_config('theme_boost_union', 'scsspre');
@@ -248,6 +277,7 @@ function theme_boost_union_get_extra_scss($theme) {
         $content .= "background-image: none !important;";
         $content .= "background-color: transparent !important;";
         $content .= '}';
+        $content .= '}';
 
         // Afterwards, we set the background-size attribute for the body element again.
         $content .= 'body.pagelayout-login { ';
@@ -257,7 +287,7 @@ function theme_boost_union_get_extra_scss($theme) {
         // Finally, we add all possible background image urls which will be picked based on the (random) loginpageimage class.
         $content .= theme_boost_union_get_loginbackgroundimage_scss();
     }
-
+	
     // Boost core has the behaviour that the normal background image is not shown on the login page, only the login background image
     // is shown on the login page.
     // This is fine, but it is done improperly as the normal background image is still there on the login page and just overlaid

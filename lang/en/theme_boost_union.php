@@ -44,6 +44,15 @@ $string['scsstab'] = 'SCSS';
 // ... Section: Raw SCSS.
 $string['scssheading'] = 'Raw SCSS';
 
+// ... Section: External RAW SCSS
+$string['scssheadingurl'] = 'Raw SCSS from URL';
+$string['rawscsspreurl'] = 'Raw initial SCSS URL';
+$string['rawscsspreurl_desc'] = 'In this field you can provide an URL from that external SCSS will be loaded before the SCSS defined in the section above.';
+$string['rawscssurl'] = 'Raw SCSS URL';
+$string['rawscssurl_desc'] = 'Use this field you can provide an URL from that external SCSS injected at the end of the style sheet but before the SCSS defined in the section above.';
+$string['invalid_url'] = 'The given URL is invalid.';
+
+
 // Settings: Page tab.
 $string['pagetab'] = 'Page';
 // ... Section: Page width.
