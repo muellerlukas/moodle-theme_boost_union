@@ -118,14 +118,15 @@ function theme_boost_union_get_main_scss_content($theme) {
 
     $scss .= file_get_contents($CFG->dirroot . '/theme/boost_union/scss/boost_union/post.scss');
 
-    // This should be in theme_boost_union_get_extra_scss(), but as the theming works theme_boost_get_extra_scss() is executed before
-    // As we want to add the SCSS before this, we sadly have to do it here
+    // This should be in theme_boost_union_get_extra_scss(), but as the theming works 
+    // theme_boost_get_extra_scss() is executed before.
+    // As we want to add the SCSS before this, we sadly have to do it here.
     if (get_config('theme_boost_union', 'scssurl')) {
         $url = get_config('theme_boost_union', 'scssurl');
 
         $curl = new curl();
 
-        // if blocked don't read
+        // Only get the data if the URL is not blocked.
         if (!$curl->get_security()->url_is_blocked($url)) {
             $scss .= $curl->get($url);
         }
@@ -226,13 +227,13 @@ function theme_boost_union_get_pre_scss($theme) {
                 ";\n";
     }
 
-    // get custom pre-scss from URL
+    // Get custom pre-scss from URL.
     if (get_config('theme_boost_union', 'scsspreurl')) {
         $url = get_config('theme_boost_union', 'scsspreurl');
 
         $curl = new curl();
 
-        // if blocked don't read
+        // Only get the data if the URL is not blocked.
         if (!$curl->get_security()->url_is_blocked($url)) {
             $scss .= $curl->get($url);
         }

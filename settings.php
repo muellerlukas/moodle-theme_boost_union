@@ -188,7 +188,7 @@ if ($hassiteconfig || has_capability('theme/boost_union:configure', context_syst
         $setting = new admin_setting_heading($name, $title, null);
         $tab->add($setting);
 
-        // Add Setting for RAW initial SCSS settings from URL
+        // Add Setting for RAW initial SCSS settings from URL.
         $name = 'theme_boost_union/scsspreurl';
         $title = get_string('rawscsspreurl', 'theme_boost_union', null, true);
         $description = get_string('rawscsspreurl_desc', 'theme_boost_union', null, true);
@@ -197,7 +197,7 @@ if ($hassiteconfig || has_capability('theme/boost_union:configure', context_syst
         $setting->set_updatedcallback('theme_reset_all_caches');
         $tab->add($setting);
 
-        // Add Setting for RAW SCSS settings from URL
+        // Add Setting for RAW SCSS settings from URL.
         $name = 'theme_boost_union/scssurl';
         $title = get_string('rawscssurl', 'theme_boost_union', null, true);
         $description = get_string('rawscssurl_desc', 'theme_boost_union', null, true);

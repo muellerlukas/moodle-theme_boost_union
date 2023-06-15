@@ -52,11 +52,11 @@ class admin_setting_configtext_url extends \admin_setting_configtext {
         // Require file library.
         require_once($CFG->libdir.'/filelib.php');
 
-        // If not a valid url it is an invalid url
+        // If the URL is invalid just respond with an error message.
         if (filter_var($data, FILTER_VALIDATE_URL) === false) {
             return get_string('invalid_url', 'theme_boost_union');
         } else {
-            // Check if the url is blocked by moodle
+            // Check if the URL is blocked.
             $curl = new \curl();
             $security = $curl->get_security();
 
