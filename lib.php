@@ -118,8 +118,8 @@ function theme_boost_union_get_main_scss_content($theme) {
 
     $scss .= file_get_contents($CFG->dirroot . '/theme/boost_union/scss/boost_union/post.scss');
 
-    // This should be in theme_boost_union_get_extra_scss(), but as the theming works 
-    // theme_boost_get_extra_scss() is executed before.
+    // This should actually be in theme_boost_union_get_extra_scss().
+    // But as the theming works theme_boost_get_extra_scss() is executed before.
     // As we want to add the SCSS before this, we sadly have to do it here.
     if (get_config('theme_boost_union', 'scssurl')) {
         $url = get_config('theme_boost_union', 'scssurl');
